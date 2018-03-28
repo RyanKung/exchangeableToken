@@ -1,5 +1,5 @@
-var PremierToken = artifacts.require("./PremierToken.sol");
+var TestToken = artifacts.require("./TestToken.sol");
 
 module.exports = function(deployer) {
-    deployer.deploy(PremierToken, 'PremierToken', 'PMT', '8');
+    deployer.deploy(TestToken, 'TestToken', 'TST', '8');
 };

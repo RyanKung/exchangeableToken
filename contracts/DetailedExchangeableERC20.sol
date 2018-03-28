@@ -14,17 +14,17 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
   mapping(uint256 => Ticker) public bidTable;
   mapping(uint256 => Ticker) public askTable;
 
-  function deleteTicker(Ticker t) private pure returns (bool) {
+  function deleteTicker(Ticker _t) private pure returns (bool) {
     // needs test
-    t.addr = address(0);
-    t.price = 0;
-    t.amount = 0;
+    _t.addr = address(0);
+    _t.price = 0;
+    _t.amount = 0;
     return true;
   }
 
-  function updateAmount(Ticker t, uint256 amount) private pure returns (bool) {
-    require(t.amount > amount);
-    t.amount = amount;
+  function updateAmount(Ticker _t, uint256 _amount) private pure returns (bool) {
+    require(_t.amount > _amount);
+    _t.amount = _amount;
     return true;
   }
 
@@ -38,29 +38,29 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     return true;
   }
 
-  function checkBidTicker(uint256 id) public view returns (address addr,uint256 price,uint256 amount) {
-    addr = bidTable[id].addr;
-    price = bidTable[id].price;
-    amount = bidTable[id].amount;
+  function checkBidTicker(uint256 _id) public view returns (address addr,uint256 price,uint256 amount) {
+    addr = bidTable[_id].addr;
+    price = bidTable[_id].price;
+    amount = bidTable[_id].amount;
   }
 
-  function checkAskTicker(uint256 id) public view returns (address addr,uint256 price,uint256 amount) {
-    addr = askTable[id].addr;
-    price = askTable[id].price;
-    amount = askTable[id].amount;
+  function checkAskTicker(uint256 _id) public view returns (address addr,uint256 price,uint256 amount) {
+    addr = askTable[_id].addr;
+    price = askTable[_id].price;
+    amount = askTable[_id].amount;
   }
   
-  function matchBid(uint256 price) public view returns (uint256) {
+  function matchBid(uint256 _price) public view returns (uint256) {
     uint256 i = 0;
-    while(i<= bidTickerId && bidTable[i].price != price) {
+    while(i<= bidTickerId && bidTable[i].price != _price) {
       i = i.add(1);
     }
     return i;
   }
 
-  function matchAsk(uint256 price) public view returns (uint256) {
+  function matchAsk(uint256 _price) public view returns (uint256) {
     uint256 i = 0;
-    while( i<= askTickerId && askTable[i].price != price) {
+    while( i<= askTickerId && askTable[i].price != _price) {
       i = i.add(1);
     }
     return i;
@@ -90,43 +90,43 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     return bidTickerId;
   }
 
-  function fillBidOrAsk(uint256 id, uint256 price, uint256 amount) public returns (uint256) {
-     Ticker storage ticker = bidTable[id];
+  function fillBidOrAsk(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256) {
+     Ticker storage ticker = bidTable[_id];
      if (ticker.addr == address(0)) {
-       return ask(price, amount);
+       return ask(_price, _amount);
      } else {
-       return fillBid(id, amount, price);
+       return fillBid(_id, _amount, _price);
      }
   }
 
-  function fillAskOrBid(uint256 id, uint256 price, uint256 amount) public payable returns (uint256) {
-     Ticker storage ticker = bidTable[id];
+  function fillAskOrBid(uint256 _id, uint256 _price, uint256 _amount) public payable returns (uint256) {
+     Ticker storage ticker = bidTable[_id];
      if (ticker.addr == address(0)) {
-       return bid(price, amount);
+       return bid(_price, _amount);
      } else {
-       return fillAsk(id, amount, price);
+       return fillAsk(_id, _amount, _price);
      }
   }
 
-  function fillBid(uint256 id, uint256 price, uint256 amount) public returns (uint256) {
+  function fillBid(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256) {
     require(msg.data.length == 68);
     // send Token and get Eth
-    Ticker storage ticker = bidTable[id];
+    Ticker storage ticker = bidTable[_id];
 
-    require(balanceOf(msg.sender) >= amount);
+    require(balanceOf(msg.sender) >= _amount);
     assert(ticker.addr != address(0));
     require(ticker.amount != uint256(0));
-    require(ticker.price == price);
+    require(ticker.price == _price);
 
-    uint256 valueEth = amount.mul(ticker.price);
+    uint256 valueEth = _amount.mul(ticker.price);
 
     require(valueEth <= ticker.amount);
     // calculate how much token should be left in ticket 
     uint256 leftEth = ticker.amount.sub(valueEth);
 
     // send token to ticker creater
-    require(approve(address(this), amount));
-    this.transferFrom(msg.sender, ticker.addr, amount); // trans token from msg sender to ticker creater
+    require(approve(address(this), _amount));
+    this.transferFrom(msg.sender, ticker.addr, _amount); // trans token from msg sender to ticker creater
 
     // send eth to msg sender
     msg.sender.transfer(valueEth);
@@ -136,27 +136,27 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     } else {
       require(deleteTicker(ticker));
     }
-    TickerFilled('bid', id, amount, ticker.amount);
+    TickerFilled('bid', _id, _amount, ticker.amount);
     return uint256(1);
   }
 
-  function fillAsk(uint256 id, uint256 price, uint256 amount) public payable returns (uint256) {
+  function fillAsk(uint256 _id, uint256 _price, uint256 _amount) public payable returns (uint256) {
     require(msg.data.length == 68);
     // send ETH and get Token
-    Ticker storage ticker = askTable[id];
+    Ticker storage ticker = askTable[_id];
 
-    require(msg.value >= amount);
+    require(msg.value >= _amount);
     assert(ticker.addr != address(0));
     require(ticker.amount != uint256(0));
-    require(ticker.price == price);
+    require(ticker.price == _price);
 
-    uint256 valueToken = amount.div(ticker.price);
+    uint256 valueToken = _amount.div(ticker.price);
 
     require(valueToken <= ticker.amount);
     uint256 leftToken  = ticker.amount.sub(valueToken);
 
     // send eth to ticker creater
-    ticker.addr.transfer(amount);
+    ticker.addr.transfer(_amount);
     // send token to msg sender
     transfer(msg.sender, valueToken);
 
@@ -166,13 +166,13 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     } else {
       require(deleteTicker(ticker));
     }
-    TickerFilled('ask', id, amount, ticker.amount);
+    TickerFilled('ask', _id, _amount, ticker.amount);
     return uint256(1);
   }
     
 
-  function cancelAsk(uint256 id) public returns (bool) {
-    Ticker storage ticker = askTable[id];
+  function cancelAsk(uint256 _id) public returns (bool) {
+    Ticker storage ticker = askTable[_id];
     assert(ticker.addr != address(0));
     require(ticker.addr == msg.sender);
     transfer(msg.sender, ticker.amount);
@@ -181,8 +181,8 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
   }
 
 
-  function cancelBid(uint256 id) public returns (bool) {
-    Ticker storage ticker = askTable[id];
+  function cancelBid(uint256 _id) public returns (bool) {
+    Ticker storage ticker = askTable[_id];
     assert(ticker.addr != address(0));
     require(ticker.addr == msg.sender);
     msg.sender.transfer(ticker.amount);

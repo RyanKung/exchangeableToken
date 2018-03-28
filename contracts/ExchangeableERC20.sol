@@ -19,20 +19,21 @@ contract ExchangeableERC20 is StandardToken, DetailedERC20 {
   event AskBidAccecpted(uint256 tickerId);
   mapping(uint256 => Ticker) public bidTable;
   mapping(uint256 => Ticker) public askTable;
-  function deleteTicker(Ticker t) private pure returns (bool);
-  function updateAmount(Ticker t, uint256 amount) private pure returns (bool);
+
+  function deleteTicker(Ticker _t) private pure returns (bool);
+  function updateAmount(Ticker _t, uint256 _amount) private pure returns (bool);
   function increaseBid() private returns (bool);
   function increaseAid() private returns (bool);
-  function checkBidTicker(uint256 id) public view returns (address addr,uint256 price,uint256 amount);
-  function checkAskTicker(uint256 id) public view returns (address addr,uint256 price,uint256 amount);
-  function matchBid(uint256 price) public view returns (uint256);
-  function matchAsk(uint256 price) public view returns (uint256);
+  function checkBidTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);
+  function checkAskTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);
+  function matchBid(uint256 _price) public view returns (uint256);
+  function matchAsk(uint256 _price) public view returns (uint256);
   function ask (uint256 _price, uint256 _amount) public returns (uint256);
   function bid (uint256 _price, uint256 _amount) public payable returns (uint256);
-  function fillBidOrAsk(uint256 id, uint256 price, uint256 amount) public returns (uint256);
-  function fillAskOrBid(uint256 id, uint256 price, uint256 amount) public payable returns (uint256);
-  function fillBid(uint256 id, uint256 price, uint256 amount) public returns (uint256);
-  function fillAsk(uint256 id, uint256 price, uint256 amount) public payable returns (uint256);
-  function cancelAsk(uint256 id) public returns (bool);
-  function cancelBid(uint256 id) public returns (bool);
+  function fillBidOrAsk(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256);
+  function fillAskOrBid(uint256 _id, uint256 _price, uint256 _amount) public payable returns (uint256);
+  function fillBid(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256);
+  function fillAsk(uint256 _id, uint256 _price, uint256 _amount) public payable returns (uint256);
+  function cancelAsk(uint256 _id) public returns (bool);
+  function cancelBid(uint256 _id) public returns (bool);
 }
