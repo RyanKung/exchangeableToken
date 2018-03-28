@@ -42,12 +42,14 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     addr = bidTable[_id].addr;
     price = bidTable[_id].price;
     amount = bidTable[_id].amount;
+    return (addr, price, amount);
   }
 
   function checkAskTicker(uint256 _id) public view returns (address addr,uint256 price,uint256 amount) {
     addr = askTable[_id].addr;
     price = askTable[_id].price;
     amount = askTable[_id].amount;
+    return (addr, price, amount);
   }
   
   function matchBid(uint256 _price) public view returns (uint256) {
@@ -73,11 +75,10 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     require(approve(address(this), _amount));
     require(allowance(msg.sender, address(this)) == _amount);
     require(this.transferFrom(msg.sender, address(this), _amount));
-
     askTable[askTickerId] = Ticker(msg.sender, _price, _amount);
     AskBidAccecpted(askTickerId);
     require(increaseAid());
-    return askTickerId;
+    return askTickerId.sub(1);
   }
 
   function bid (uint256 _price, uint256 _amount) public payable returns (uint256) {
@@ -87,7 +88,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     bidTable[bidTickerId] = Ticker(msg.sender, _price, _amount);
     AskBidAccecpted(bidTickerId);
     require(increaseBid());
-    return bidTickerId;
+    return bidTickerId.sub(1);
   }
 
   function fillBidOrAsk(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256) {
