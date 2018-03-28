@@ -1,5 +1,9 @@
 ## The Exchangeable Extension for ERC20 Token
 
+## Install
+
+npm install exchangeable-erc20
+
 ## Dependence:
 
 * Truffle > 4.1.0
