@@ -1,14 +1,14 @@
 ## The Exchangeable Extension for ERC20 Token
 
+## Warning:
+
+Unstable, Unstable, Unstable
+
 ## Install
 
+```
 npm install exchangeable-erc20
-
-## Dependence:
-
-* Truffle > 4.1.0
-* ganache
-* solidity-repl
+```
 
 ## Development:
 
