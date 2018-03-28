@@ -1,0 +1,16 @@
+{
+  "package_name": "exchangeableerc20",
+  "version": "0.0.1",
+  "description": "Exchangeable Extension for ERC20 Token",
+  "authors": [
+    "Ryan Kung <ryankungs@gmail.com>"
+  ],
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "security"
+  ],
+  "license": "MIT"
+}
