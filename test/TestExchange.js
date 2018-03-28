@@ -1,6 +1,7 @@
 var TestToken = artifacts.require("./TestToken.sol");
 
 contract('TestTestToken', function(accounts) {
+
     let tst = null;
     let startBlock = null;
     beforeEach('Init Contract', function (){
@@ -34,14 +35,18 @@ contract('TestTestToken', function(accounts) {
             return tst.ask.call(1, 100, { from: accounts[0] });
         }).then(function (res) {
             assert.equal(res.toNumber(), 1);
-        }).then(function () {
-            it("balance should be sub", function() {
-                TestToken.deployed().then(function(ins) {
-                    return ins.balanceOf.call(accounts[0]);
-                }).then(function(res) {
-                    assert.equal(res.toNumber(), 100000000 - 100)
-                })
-            })
+        })
+
+    })
+    it("balance should be sub", function() {
+        TestToken.deployed().then(function(ins) {
+            return ins.balanceOf.call(accounts[0]);
+        }).then(function(res) {
+            assert.equal(res.toNumber(), 100000000 - 100)
+        }).then(function() {
+            return ins.checkAskTicker(1)
+        }).then(function(res) {
+            assert.equal(res.data(), accounts[0], 1, 10);
         })
     })
 })
