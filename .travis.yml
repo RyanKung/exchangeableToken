@@ -17,6 +17,6 @@ install:
   - npm install -g ganache-cli
   - npm install
 before_script:
-  - ganache-cli
+  - ganache-cli &
 script:
   - make unittest
