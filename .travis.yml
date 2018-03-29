@@ -1,0 +1,22 @@
+sudo: required
+group: beta
+language: node_js
+node_js:
+  - "8"
+cache:
+  directories:
+    - node_modules
+env:
+  -
+  - SOLIDITY_COVERAGE=true
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: SOLIDITY_COVERAGE=true
+install:
+  - npm install -g ganache-cli
+  - npm install
+before_script:
+  - ganache-cli
+script:
+  - make unittest

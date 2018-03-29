@@ -6,7 +6,12 @@
   "directories": {
     "test": "test"
   },
-  "keywords": ["Smart Contract", "Solidity", "Exchange", "DEX"],
+  "keywords": [
+    "Smart Contract",
+    "Solidity",
+    "Exchange",
+    "DEX"
+  ],
   "author": "ryankung",
   "license": "MIT",
   "dependencies": {
