@@ -51,17 +51,17 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     amount = askTable[_id].amount;
     return (addr, price, amount);
   }
-  
-  function matchBid(uint256 _price) public view returns (uint256) {
-    uint256 i = 0;
+
+  function matchBid(uint256 _price, uint256 _start) public view returns (uint256) {
+    uint256 i = _start;
     while(i<= bidTickerId && bidTable[i].price != _price) {
       i = i.add(1);
     }
     return i;
   }
 
-  function matchAsk(uint256 _price) public view returns (uint256) {
-    uint256 i = 0;
+  function matchAsk(uint256 _price, uint256 _start) public view returns (uint256) {
+    uint256 i = _start;
     while( i<= askTickerId && askTable[i].price != _price) {
       i = i.add(1);
     }

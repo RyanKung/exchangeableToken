@@ -26,8 +26,8 @@ contract ExchangeableERC20 is StandardToken, DetailedERC20 {
   function increaseAid() private returns (bool);
   function checkBidTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);
   function checkAskTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);
-  function matchBid(uint256 _price) public view returns (uint256);
-  function matchAsk(uint256 _price) public view returns (uint256);
+  function matchBid(uint256 _price, uint256 _start) public view returns (uint256);
+  function matchAsk(uint256 _price, uint256 _start) public view returns (uint256);
   function ask (uint256 _price, uint256 _amount) public returns (uint256);
   function bid (uint256 _price, uint256 _amount) public payable returns (uint256);
   function fillBidOrAsk(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256);
