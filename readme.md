@@ -4,7 +4,7 @@ This is a extension for ERC20 token, which added an build-in exchange to ERC20 t
 
 ===================
 
-[![travis](https://travis-ci.org/RyanKung/exchangeable-erc20.svg?branch=master)](https://travis-ci.org/RyanKung/exchangeable-erc20)
+[![travis](https://travis-ci.org/RyanKung/exchangeableERC20.svg?branch=master)](https://travis-ci.org/RyanKung/exchangeableERC20)
 
 
 
