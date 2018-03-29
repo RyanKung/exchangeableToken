@@ -16,7 +16,7 @@ contract ExchangeableERC20 is StandardToken, DetailedERC20 {
   }
   event TickerFilled(string tickerType, uint256 tickerId, uint256 amount, uint256 total);
   event Logging(string msg);
-  event AskBidAccecpted(uint256 tickerId);
+  event TickerAccecpted(string kind, uint256 tickerId);
   mapping(uint256 => Ticker) public bidTable;
   mapping(uint256 => Ticker) public askTable;
 

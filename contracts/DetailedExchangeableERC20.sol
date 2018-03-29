@@ -5,15 +5,6 @@ import './ExchangeableERC20.sol';
 contract DetailedExchangeableERC20 is ExchangeableERC20 {
   using SafeMath for uint256;
 
-  uint256 public bidTickerId = 0;
-  uint256 public askTickerId = 0;
-
-  event TickerFilled(string tickerType, uint256 tickerId, uint256 amount, uint256 total);
-  event Logging(string msg);
-  event AskBidAccecpted(uint256 tickerId);
-  mapping(uint256 => Ticker) public bidTable;
-  mapping(uint256 => Ticker) public askTable;
-
   function deleteTicker(Ticker _t) private pure returns (bool) {
     // needs test
     _t.addr = address(0);
@@ -76,7 +67,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     require(allowance(msg.sender, address(this)) == _amount);
     require(this.transferFrom(msg.sender, address(this), _amount));
     askTable[askTickerId] = Ticker(msg.sender, _price, _amount);
-    AskBidAccecpted(askTickerId);
+    TickerAccecpted('ask', askTickerId);
     require(increaseAid());
     return askTickerId.sub(1);
   }
@@ -86,7 +77,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     // send Ether and sell for token
     require(msg.value >= _amount);
     bidTable[bidTickerId] = Ticker(msg.sender, _price, _amount);
-    AskBidAccecpted(bidTickerId);
+    TickerAccecpted('bid', bidTickerId);
     require(increaseBid());
     return bidTickerId.sub(1);
   }
