@@ -15,6 +15,7 @@ contract('TestTestToken', function(accounts) {
             return tst.bid.call(1, 10, { from: accounts[1], value: web3.toWei(10) });
         }).then(function (res) {
             assert.equal(res.toNumber(), 0);
+            tst.bid.sendTransaction(1, 10, { from: accounts[1], value: web3.toWei(10) });
         })
     })
     it("should transfer right token", function() {
@@ -64,6 +65,24 @@ contract('TestTestToken', function(accounts) {
             return tst.balanceOf(accounts[0]);
         }).then(function(res) {
             assert.equal(res.toNumber(), initToken - 50);
+        })
+    })
+    it("Test fill bid", function() {
+        TestToken.deployed().then(function(ins) {
+            TestToken.deployed().then(function(ins) {
+                tst = ins;
+                return tst.fillBid.call(0, 1, 10, {from: accounts[0]})
+            }).then(function(res) {
+                assert.equal(res.toNumber(), 1);
+            })
+        })
+    })
+    it("Test fill ask", function() {
+        TestToken.deployed().then(function(ins) {
+            tst = ins;
+            return tst.fillAsk.call(0, 1, 100, {from: accounts[0], value: 100})
+        }).then(function(res) {
+            assert.equal(res.toNumber(), 1);
         })
     })
 })

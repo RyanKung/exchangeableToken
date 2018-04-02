@@ -101,7 +101,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
   }
 
   function fillBid(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256) {
-    require(msg.data.length == 68);
+    require(msg.data.length == 100);
     // send Token and get Eth
     Ticker storage ticker = bidTable[_id];
 
@@ -118,6 +118,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
 
     // send token to ticker creater
     require(approve(address(this), _amount));
+    require(allowance(msg.sender, address(this)) == _amount);
     this.transferFrom(msg.sender, ticker.addr, _amount); // trans token from msg sender to ticker creater
 
     // send eth to msg sender
@@ -133,7 +134,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
   }
 
   function fillAsk(uint256 _id, uint256 _price, uint256 _amount) public payable returns (uint256) {
-    require(msg.data.length == 68);
+    require(msg.data.length == 100);
     // send ETH and get Token
     Ticker storage ticker = askTable[_id];
 
@@ -151,7 +152,6 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     ticker.addr.transfer(_amount);
     // send token to msg sender
     transfer(msg.sender, valueToken);
-
 
     if (leftToken > 0) {
       require(updateAmount(ticker, leftToken));
