@@ -88,7 +88,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     if (ticker.addr == address(0)) {
       return ask(_price, _amount);
     } else {
-      return fillBid(_id, _amount, _price);
+      return fillBid(_id, _price, _amount);
     }
   }
 
@@ -98,7 +98,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     if (ticker.addr == address(0)) {
       return bid(_price, _amount);
     } else {
-      return fillAsk(_id, _amount, _price);
+      return fillAsk(_id, _price, _amount);
     }
   }
 
