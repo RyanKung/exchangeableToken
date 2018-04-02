@@ -83,21 +83,23 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
   }
 
   function fillBidOrAsk(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256) {
-     Ticker storage ticker = bidTable[_id];
-     if (ticker.addr == address(0)) {
-       return ask(_price, _amount);
-     } else {
-       return fillBid(_id, _amount, _price);
-     }
+    require(msg.data.length == 100);
+    Ticker storage ticker = bidTable[_id];
+    if (ticker.addr == address(0)) {
+      return ask(_price, _amount);
+    } else {
+      return fillBid(_id, _amount, _price);
+    }
   }
 
   function fillAskOrBid(uint256 _id, uint256 _price, uint256 _amount) public payable returns (uint256) {
-     Ticker storage ticker = bidTable[_id];
-     if (ticker.addr == address(0)) {
-       return bid(_price, _amount);
-     } else {
-       return fillAsk(_id, _amount, _price);
-     }
+    require(msg.data.length == 100);
+    Ticker storage ticker = bidTable[_id];
+    if (ticker.addr == address(0)) {
+      return bid(_price, _amount);
+    } else {
+      return fillAsk(_id, _amount, _price);
+    }
   }
 
   function fillBid(uint256 _id, uint256 _price, uint256 _amount) public returns (uint256) {
