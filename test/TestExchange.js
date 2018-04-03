@@ -69,12 +69,10 @@ contract('TestTestToken', function(accounts) {
     })
     it("Test fill bid", function() {
         TestToken.deployed().then(function(ins) {
-            TestToken.deployed().then(function(ins) {
-                tst = ins;
-                return tst.fillBid.call(0, 1, 10, {from: accounts[0]})
-            }).then(function(res) {
-                assert.equal(res.toNumber(), 1);
-            })
+            tst = ins;
+            return tst.fillBid.call(0, 1, 10, {from: accounts[0]})
+        }).then(function(res) {
+            assert.equal(res.toNumber(), 1);
         })
     })
     it("Test fill ask", function() {
