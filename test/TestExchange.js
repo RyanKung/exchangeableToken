@@ -67,6 +67,16 @@ contract('TestTestToken', function(accounts) {
             assert.equal(res.toNumber(), initToken - 50);
         })
     })
+    it("Test getter", function() {
+        TestToken.deployed().then(function(ins) {
+            return ins.checkAskTicker(0);
+        }).then(function(res) {
+            assert.equal(res[0], accounts[0])
+            assert.equal(res[1].toNumber(), 1)
+            assert.equal(res[2].toNumber(), 100)
+        })
+    })
+
     it("Test fill bid", function() {
         TestToken.deployed().then(function(ins) {
             tst = ins;
@@ -81,6 +91,17 @@ contract('TestTestToken', function(accounts) {
             return tst.fillAsk.call(0, 1, 100, {from: accounts[0], value: 100})
         }).then(function(res) {
             assert.equal(res.toNumber(), 1);
+            tst.fillAsk.sendTransaction(0, 1, 100, {from: accounts[0], value: 100})
+        })
+    })
+    it("Test deleted ask", function() {
+        TestToken.deployed().then(function(ins) {
+            tst = ins;
+            return tst.checkAskTicker.call(0)
+        }).then(function(res) {
+            console.log(res)
+            assert.equal(res[1].toNumber(), 0)
+            assert.equal(res[2].toNumber(), 0)
         })
     })
 })

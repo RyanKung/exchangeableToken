@@ -20,8 +20,8 @@ contract ExchangeableERC20 is StandardToken, DetailedERC20 {
   mapping(uint256 => Ticker) public bidTable;
   mapping(uint256 => Ticker) public askTable;
 
-  function deleteTicker(Ticker _t) private pure returns (bool);
-  function updateAmount(Ticker _t, uint256 _amount) private pure returns (bool);
+  function deleteTicker(Ticker storage _t) private returns (bool);
+  function updateAmount(Ticker storage _t, uint256 _amount) private returns (bool);
   function increaseBid() private returns (bool);
   function increaseAid() private returns (bool);
   function checkBidTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);

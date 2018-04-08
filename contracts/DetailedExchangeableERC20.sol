@@ -5,15 +5,16 @@ import './ExchangeableERC20.sol';
 contract DetailedExchangeableERC20 is ExchangeableERC20 {
   using SafeMath for uint256;
 
-  function deleteTicker(Ticker _t) private pure returns (bool) {
-    // needs test
+  function deleteTicker(Ticker storage _t) private returns (bool) {
+    Ticker storage _x = askTable[0];
+    _t = _x;
     _t.addr = address(0);
     _t.price = 0;
     _t.amount = 0;
     return true;
   }
 
-  function updateAmount(Ticker _t, uint256 _amount) private pure returns (bool) {
+  function updateAmount(Ticker storage _t, uint256 _amount) private returns (bool) {
     require(_t.amount > _amount);
     _t.amount = _amount;
     return true;
