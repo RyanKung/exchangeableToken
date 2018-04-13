@@ -10,7 +10,7 @@ This is a extension for ERC20 token, which added an build-in exchange to ERC20 t
 
 ## Example
 
-```
+```solidity
 pragma solidity ^0.4.17;
 
 import './DetailedExchangeableERC20.sol';
