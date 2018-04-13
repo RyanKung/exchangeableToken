@@ -39,27 +39,15 @@ npm install exchangeable-erc20
 
 ## Interfaces
 
+From contract Exchangeable.sol
+
 ```solidity
 
-contract ExchangeableERC20 is StandardToken, DetailedERC20 {
-  uint256 public bidTickerId = 0;
-  uint256 public askTickerId = 0;
-
-  struct Ticker {
-    address addr;
-    uint256 price;
-    uint256 amount;
-  }
+interface Exchangeable {
   event TickerFilled(string tickerType, uint256 tickerId, uint256 amount, uint256 total);
   event Logging(string msg);
   event TickerAccecpted(string kind, uint256 tickerId);
-  mapping(uint256 => Ticker) public bidTable;
-  mapping(uint256 => Ticker) public askTable;
 
-  function deleteTicker(Ticker _t) private pure returns (bool);
-  function updateAmount(Ticker _t, uint256 _amount) private pure returns (bool);
-  function increaseBid() private returns (bool);
-  function increaseAid() private returns (bool);
   function checkBidTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);
   function checkAskTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);
   function matchBid(uint256 _price, uint256 _start) public view returns (uint256);
