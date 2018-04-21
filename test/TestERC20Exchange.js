@@ -1,4 +1,4 @@
-var TestToken = artifacts.require("./TestToken.sol");
+var TestToken = artifacts.require("./ERC20/TestToken.sol");
 
 contract('TestTestToken', function(accounts) {
 
