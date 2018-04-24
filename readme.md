@@ -1,4 +1,4 @@
-## The Exchangeable Extension for ERC20 Token
+## The Exchangeable Extension for ERC20 and ERC721 Token
 
 This is a extension for ERC20 token, which added an build-in exchange to ERC20 token.
 
@@ -27,7 +27,6 @@ contract TestToken is DetailedExchangeableERC20 {
     balances[msg.sender] = 100000000;
   }
 }
-
 
 ```
 
