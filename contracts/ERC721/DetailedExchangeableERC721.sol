@@ -23,7 +23,7 @@ contract DetailedExchangeableERC721 {
     require(takeOwnership(_tokenId));
     askTable[_tokenId] = Ticker(msg.sender, _price, _tokenId);
     TickerAccecpted('ask', askTickerId);
-    return _tokenId
+    return _tokenId;
   }
   function fillAsk(uint256 _tokenId, uint256 _price) public payable returns (uint256) {
      require(msg.data.length == 68);
