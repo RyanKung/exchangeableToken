@@ -33,7 +33,7 @@ contract TestToken is DetailedExchangeableERC20 {
 ## Install
 
 ```
-npm install exchangeable-erc20
+npm install exchangeable-tokens
 ```
 
 ## Interfaces
