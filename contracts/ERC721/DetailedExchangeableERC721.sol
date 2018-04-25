@@ -1,6 +1,6 @@
 import './ExchangeableERC721.sol';
 
-contract DetailedExchangeableERC721 {
+contract DetailedExchangeableERC721 is ExchangeableERC721 {
   using SafeMath for uint256;
 
    function deleteTicker(Ticker storage _t) private returns (bool) {
@@ -25,6 +25,7 @@ contract DetailedExchangeableERC721 {
     TickerAccecpted('ask', askTickerId);
     return _tokenId;
   }
+
   function fillAsk(uint256 _tokenId, uint256 _price) public payable returns (uint256) {
      require(msg.data.length == 68);
      Ticker storage ticker = askTable[_tokenId];
