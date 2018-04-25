@@ -12,5 +12,4 @@ contract ExchangeableERC721 is ERC721Token, Exchangeable {
   }
   mapping(uint256 => Ticker) public askTable;
   function deleteTicker(Ticker storage _t) private returns (bool);
-  }
 }

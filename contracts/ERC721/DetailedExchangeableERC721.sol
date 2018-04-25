@@ -1,4 +1,7 @@
+pragma solidity ^0.4.18;
+
 import './ExchangeableERC721.sol';
+
 
 contract DetailedExchangeableERC721 is ExchangeableERC721 {
   using SafeMath for uint256;
@@ -10,19 +13,19 @@ contract DetailedExchangeableERC721 is ExchangeableERC721 {
     return true;
   }
 
-  function checkAskTicker(uint256 _tokenId) public view returns (address addr,uint256 price,uint256 amount) {
+  function checkAskTicker(uint256 _tokenId) public view returns (address addr,uint256 price,uint256 tokenId) {
     addr = askTable[_tokenId].addr;
     price = askTable[_tokenId].price;
-    amount = askTable[_tokenId].amount;
-    return (addr, price, amount);
+    tokenId = askTable[_tokenId].tokenId;
+    return (addr, price, tokenId);
   }
   function ask (uint256 _price, uint256 _tokenId) public returns (uint256) {
     // send and token and sell for ETH
     require(msg.data.length == 68);
-    require(approve(address(this), _tokenId));
-    require(takeOwnership(_tokenId));
+    approve(address(this), _tokenId);
+    takeOwnership(_tokenId);
     askTable[_tokenId] = Ticker(msg.sender, _price, _tokenId);
-    TickerAccecpted('ask', askTickerId);
+    TickerAccecpted('ask', _tokenId);
     return _tokenId;
   }
 
@@ -36,6 +39,6 @@ contract DetailedExchangeableERC721 is ExchangeableERC721 {
      ticker.addr.transfer(msg.value);
      transfer(msg.sender, _tokenId);
      TickerFilled('ASK', _tokenId);
-     deleteTicker(_tokenId);
+     deleteTicker(ticker);
   }
 }
