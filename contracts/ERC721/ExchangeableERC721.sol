@@ -1,9 +1,9 @@
 pragma solidity ^0.4.17;
 
 import 'zeppelin-solidity/contracts/token/ERC721/ERC721Token.sol';
-import './Exchangeable.sol';
+import './ExchangeableERC721Interface.sol';
 
-contract ExchangeableERC721 is ERC721Token, Exchangeable {
+contract ExchangeableERC721 is ERC721Token, ExchangeableERC721Interface {
 
   struct Ticker {
     address addr;

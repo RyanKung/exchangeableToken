@@ -1,10 +1,10 @@
 pragma solidity ^0.4.17;
 
-import 'zeppelin-solidity/contracts/token/ERC20/StandardToken.sol';
-import 'zeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol';
-import './ExchangeableERC20Interface.sol';
+import 'zeppelin-solidity/contracts/token/ERC827/StandardToken.sol';
+import 'zeppelin-solidity/contracts/token/ERC827/DetailedERC827.sol';
+import './ExchangeableERC827Interface.sol';
 
-contract ExchangeableERC20 is StandardToken, DetailedERC20, ExchangeableERC20Interface {
+contract ExchangeableERC827 is StandardToken, DetailedERC827, ExchangeableERC827Interface {
   using SafeMath for uint256;
 
   uint256 public bidTickerId = 0;
