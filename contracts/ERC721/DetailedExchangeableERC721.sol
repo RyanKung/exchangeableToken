@@ -23,7 +23,8 @@ contract DetailedExchangeableERC721 is ExchangeableERC721 {
     // send and token and sell for ETH
     require(msg.data.length == 68);
     approve(address(this), _tokenId);
-    takeOwnership(_tokenId);
+    transferFrom(msg.sender, address(this), _tokenId)
+    // takeOwnership(_tokenId);
     askTable[_tokenId] = Ticker(msg.sender, _price, _tokenId);
     TickerAccecpted('ask', _tokenId);
     return _tokenId;
@@ -40,5 +41,15 @@ contract DetailedExchangeableERC721 is ExchangeableERC721 {
      transfer(msg.sender, _tokenId);
      TickerFilled('ASK', _tokenId);
      deleteTicker(ticker);
+  }
+
+  function cancelAsk(uint256 _id) public returns (bool) {
+     Ticker storage ticker = askTable[_id];
+     assert(ticker.addr != address(0));
+     require(ticker.addr == msg.sender);
+     transfer(msg.sender, ticker.tokenId);
+     require(deleteTicker(ticker));
+     TickerCanceled('ASK', _id);
+     return true;
   }
 }

@@ -170,16 +170,18 @@ contract DetailedExchangeableERC827 is ExchangeableERC827 {
     require(ticker.addr == msg.sender);
     transfer(msg.sender, ticker.amount);
     require(deleteTicker(ticker));
+    TickerCanceled('ASK', _id);
     return true;
   }
 
 
   function cancelBid(uint256 _id) public returns (bool) {
-    Ticker storage ticker = askTable[_id];
+    Ticker storage ticker = bidTable[_id];
     assert(ticker.addr != address(0));
     require(ticker.addr == msg.sender);
     msg.sender.transfer(ticker.amount);
     require(deleteTicker(ticker));
+    TickerCanceled('BID', _id);
     return true;
   }
 
