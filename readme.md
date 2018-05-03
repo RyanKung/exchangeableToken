@@ -1,6 +1,6 @@
-## The Exchangeable Extension for ERC20 and ERC721 Token
+## The Exchangeable Extension for Ether based Token
 
-This is a extension for ERC20 token, which added an build-in exchange to ERC20 token.
+This is a extension for ERC20, ERC721, ERC827 tokens, which added an build-in exchange.
 
 ===================
 
