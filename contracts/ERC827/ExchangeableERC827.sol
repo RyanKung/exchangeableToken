@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.20;
 
 import 'zeppelin-solidity/contracts/token/ERC827/ERC827Token.sol';
 import '../ERC20/ExchangeableERC20Interface.sol';
@@ -21,9 +21,9 @@ contract ExchangeableERC827 is ERC827Token, ExchangeableERC20Interface {
   mapping(uint256 => Ticker) public bidTable;
   mapping(uint256 => Ticker) public askTable;
 
-  function increaseBid() private returns (bool);
-  function increaseAid() private returns (bool);
-  function deleteTicker(Ticker storage _t) private returns (bool);
-  function updateAmount(Ticker storage _t, uint256 _amount) private returns (bool);
+  function increaseBid() internal returns (bool);
+  function increaseAid() internal returns (bool);
+  function deleteTicker(Ticker storage _t) internal returns (bool);
+  function updateAmount(Ticker storage _t, uint256 _amount) internal returns (bool);
 
 }

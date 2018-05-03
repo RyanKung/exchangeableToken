@@ -6,7 +6,7 @@ import './ExchangeableERC721.sol';
 contract DetailedExchangeableERC721 is ExchangeableERC721 {
   using SafeMath for uint256;
 
-   function deleteTicker(Ticker storage _t) private returns (bool) {
+   function deleteTicker(Ticker storage _t) internal returns (bool) {
     _t.addr = address(0);
     _t.price = 0;
     _t.tokenId = 0;

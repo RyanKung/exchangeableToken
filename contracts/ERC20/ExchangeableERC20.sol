@@ -21,9 +21,9 @@ contract ExchangeableERC20 is StandardToken, DetailedERC20, ExchangeableERC20Int
   mapping(uint256 => Ticker) public bidTable;
   mapping(uint256 => Ticker) public askTable;
 
-  function increaseBid() private returns (bool);
-  function increaseAid() private returns (bool);
-  function deleteTicker(Ticker storage _t) private returns (bool);
-  function updateAmount(Ticker storage _t, uint256 _amount) private returns (bool);
+  function increaseBid() internal returns (bool);
+  function increaseAid() internal returns (bool);
+  function deleteTicker(Ticker storage _t) internal returns (bool);
+  function updateAmount(Ticker storage _t, uint256 _amount) internal returns (bool);
 
 }
