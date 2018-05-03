@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "drizzle": "^1.0.1",
+    "solc": "^0.4.21",
     "truffle": "^4.1.0",
     "zeppelin-solidity": "1.9.0"
   },

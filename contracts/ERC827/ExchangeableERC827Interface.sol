@@ -5,6 +5,7 @@ interface ExchangeableERC827Interface {
   event TickerFilled(string tickerType, uint256 tickerId, uint256 amount, uint256 total);
   event Logging(string msg);
   event TickerAccecpted(string kind, uint256 tickerId);
+  event TickerCanceled(string kind, uint256 tickerId);
 
   function checkBidTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);
   function checkAskTicker(uint256 _id) public view returns (address _addr,uint256 _price,uint256 _amount);

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.20;
 
 import './ExchangeableERC827.sol';
 
@@ -66,7 +66,7 @@ contract DetailedExchangeableERC827 is ExchangeableERC827 {
     require(allowance(msg.sender, address(this)) == _amount);
     require(this.transferFrom(msg.sender, address(this), _amount));
     askTable[askTickerId] = Ticker(msg.sender, _price, _amount);
-    TickerAccecpted('ask', askTickerId);
+    emit TickerAccecpted('ask', askTickerId);
     require(increaseAid());
     return askTickerId.sub(1);
   }
@@ -76,7 +76,7 @@ contract DetailedExchangeableERC827 is ExchangeableERC827 {
     // send Ether and sell for token
     require(msg.value >= _amount);
     bidTable[bidTickerId] = Ticker(msg.sender, _price, _amount);
-    TickerAccecpted('bid', bidTickerId);
+    emit TickerAccecpted('bid', bidTickerId);
     require(increaseBid());
     return bidTickerId.sub(1);
   }
@@ -130,7 +130,7 @@ contract DetailedExchangeableERC827 is ExchangeableERC827 {
     } else {
       require(deleteTicker(ticker));
     }
-    TickerFilled('bid', _id, _amount, ticker.amount);
+    emit TickerFilled('bid', _id, _amount, ticker.amount);
     return uint256(1);
   }
 
@@ -159,7 +159,7 @@ contract DetailedExchangeableERC827 is ExchangeableERC827 {
     } else {
       require(deleteTicker(ticker));
     }
-    TickerFilled('ask', _id, _amount, ticker.amount);
+    emit TickerFilled('ask', _id, _amount, ticker.amount);
     return uint256(1);
   }
     
@@ -170,7 +170,7 @@ contract DetailedExchangeableERC827 is ExchangeableERC827 {
     require(ticker.addr == msg.sender);
     transfer(msg.sender, ticker.amount);
     require(deleteTicker(ticker));
-    TickerCanceled('ASK', _id);
+    emit TickerCanceled('ASK', _id);
     return true;
   }
 
@@ -181,7 +181,7 @@ contract DetailedExchangeableERC827 is ExchangeableERC827 {
     require(ticker.addr == msg.sender);
     msg.sender.transfer(ticker.amount);
     require(deleteTicker(ticker));
-    TickerCanceled('BID', _id);
+    emit TickerCanceled('BID', _id);
     return true;
   }
 
