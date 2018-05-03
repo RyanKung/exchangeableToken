@@ -1,6 +1,6 @@
 {
   "name": "exchangeable-tokens",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Exchangeable Extension For ERC20 Token",
   "main": "truffle-config.js",
   "directories": {
