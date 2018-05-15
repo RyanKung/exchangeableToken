@@ -168,7 +168,7 @@ contract DetailedExchangeableERC20 is ExchangeableERC20 {
     Ticker storage ticker = askTable[_id];
     assert(ticker.addr != address(0));
     require(ticker.addr == msg.sender);
-    transfer(msg.sender, ticker.amount);
+    this.transfer(msg.sender, ticker.amount);
     require(deleteTicker(ticker));
     emit TickerCanceled('ASK', _id);
     return true;

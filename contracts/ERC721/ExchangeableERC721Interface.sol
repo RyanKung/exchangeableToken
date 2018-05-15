@@ -1,7 +1,7 @@
 pragma solidity ^0.4.17;
 
 
-interface ExchangeableERC721Interface {
+contract ExchangeableERC721Interface {
   event TickerFilled(string tickerType, uint256 tickerId);
   event Logging(string msg);
   event TickerAccecpted(string kind, uint256 tickerId);

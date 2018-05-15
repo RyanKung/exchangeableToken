@@ -4,7 +4,7 @@ This is a extension for ERC20, ERC721, ERC827 tokens, which added an build-in ex
 
 ===================
 
-[![travis](https://travis-ci.org/RyanKung/exchangeableERC20.svg?branch=master)](https://travis-ci.org/RyanKung/exchangeableERC20)
+[![travis](https://travis-ci.org/RyanKung/exchangeableToken.svg?branch=master)](https://travis-ci.org/RyanKung/exchangeableToken)
 
 
 
