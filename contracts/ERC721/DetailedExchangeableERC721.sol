@@ -23,7 +23,7 @@ contract DetailedExchangeableERC721 is ExchangeableERC721 {
     // send and token and sell for ETH
     require(msg.data.length == 68);
     
-    require(_price > unit256(0));
+    require(_price > uint256(0));
     require(msg.sender==ownerOf(_tokenId));
     
     transferFrom(msg.sender, address(this), _tokenId);
