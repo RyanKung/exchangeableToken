@@ -22,6 +22,10 @@ contract DetailedExchangeableERC721 is ExchangeableERC721 {
   function ask (uint256 _price, uint256 _tokenId) public returns (uint256) {
     // send and token and sell for ETH
     require(msg.data.length == 68);
+    
+    require(_price > unit256(0));
+    require(msg.sender==ownerOf(_tokenId));
+    
     transferFrom(msg.sender, address(this), _tokenId);
     askTable[_tokenId] = Ticker(msg.sender, _price, _tokenId);
     TickerAccecpted('ask', _tokenId);
